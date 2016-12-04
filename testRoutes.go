@@ -8,7 +8,6 @@ import (
 
 func YourHandler(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("Gorilla!\n"))
-    r.Get("/article")
 }
 
 func main() {
