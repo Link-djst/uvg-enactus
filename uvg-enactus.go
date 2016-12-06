@@ -4,13 +4,17 @@ import(
   "io"
   "os"
   "net/http"
+
+  "github.com/gorilla/mux"
 )
 
 func main() {
   port := os.Getenv("PORT")
 
-  http.HandleFunc("/", hello)
-  http.ListenAndServe(":" + port, nil)
+  r := mux.NewRouter()
+  r.HandleFunc("/", hello)
+
+  http.ListenAndServe(":" + port, r)
 }
 
 func hello(w http.ResponseWriter, r *http.Request){
