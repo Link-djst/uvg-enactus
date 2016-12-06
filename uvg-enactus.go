@@ -1,26 +1,18 @@
 package main
 
-import (
-  "log"
+import(
+  "io"
   "os"
-  "github.com/gin-gonic/gin"
+  "net/http"
 )
 
 func main() {
   port := os.Getenv("PORT")
 
-	if port == "" {
-		log.Println("$PORT must be set. Running localhost:8000")
-    port = "8000"
-	}
+  http.HandleFunc("/", hello)
+  http.ListenAndServe(":" + port, nil)
+}
 
-  r := gin.Default()
-
-  r.GET("/ping", func(c *gin.Context) {
-    c.JSON(200, gin.H {
-      "message": "pong",
-    })
-  })
-
-  r.Run(":" + port)
+func hello(w http.ResponseWriter, r *http.Request){
+  io.WriteString(w, "Hello Arch-Golang")
 }
